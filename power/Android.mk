@@ -28,6 +28,10 @@ ifneq ($(TARGET_TAP_TO_WAKE_NODE),)
     LOCAL_CFLAGS := -DDT2W_PATH=\"$(TARGET_DT2W_PATH)\"
 endif
 
+ifneq ($(DEVICE_TARGET), aosp)
+    LOCAL_CFLAGS += -DCM_POWER
+endif
+
 include $(BUILD_SHARED_LIBRARY)
 
 endif

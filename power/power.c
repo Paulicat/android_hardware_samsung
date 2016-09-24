@@ -444,6 +444,7 @@ out:
  *     be boosted for a specific duration. The data parameter is an
  *     integer value of the boost duration in microseconds.
  */
+#ifdef CM_POWER
 static void samsung_power_hint(struct power_module *module,
                                   power_hint_t hint,
                                   void *data)
@@ -518,6 +519,7 @@ static void samsung_set_feature(struct power_module *module, feature_t feature, 
             break;
     }
 }
+#endif
 
 static struct hw_module_methods_t power_module_methods = {
     .open = NULL,
@@ -537,9 +539,11 @@ struct samsung_power_module HAL_MODULE_INFO_SYM = {
 
         .init = samsung_power_init,
         .setInteractive = samsung_power_set_interactive,
+#ifdef CM_POWER
         .powerHint = samsung_power_hint,
         .getFeature = samsung_get_feature,
         .setFeature = samsung_set_feature
+#endif
     },
 
     .lock = PTHREAD_MUTEX_INITIALIZER,
